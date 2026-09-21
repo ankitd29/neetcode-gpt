@@ -5,19 +5,13 @@ from typing import Tuple
 
 class Solution:
     def backward(self, x: NDArray[np.float64], w: NDArray[np.float64], b: float, y_true: float) -> Tuple[NDArray[np.float64], float]:
-        # x: 1D input array
-        # w: 1D weight array
-        # b: scalar bias
-        # y_true: true target value
-        #
-        # Forward: z = dot(x, w) + b, y_hat = sigmoid(z)
-        # Loss: L = 0.5 * (y_hat - y_true)^2
-        # Return: (dL_dw rounded to 5 decimals, dL_db rounded to 5 decimals)
-        solution = []
         z = np.dot(x,w) + b
         y_hat = 1/(1 + np.exp(-z))
-        gradient_weight = (y_hat - y_true)*y_hat*(1-y_hat)*x
-        gradient_bias = (y_hat - y_true)*y_hat*(1-y_hat)
-        solution = (np.round(gradient_weight, 5), np.round(gradient_bias, 5))
 
-        return solution
+        error = y_hat - y_true
+        sigmoid_deriv = y_hat*(1-y_hat)
+
+        dL_dw = np.round(error*sigmoid_deriv*x, 5)
+        dL_db = np.round(error*sigmoid_deriv, 5)
+
+        return (dL_dw, dL_db)
