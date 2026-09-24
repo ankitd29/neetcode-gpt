@@ -10,19 +10,6 @@ class Solution:
                               y_true: List[float]) -> dict:
         # Architecture: x -> Linear(W1, b1) -> ReLU -> Linear(W2, b2) -> predictions
         # Loss: MSE = mean((predictions - y_true)^2)
-        #
-        # Return dict with keys:
-        #   'loss':  float (MSE loss, rounded to 4 decimals)
-        #   'dW1':   2D list (gradient w.r.t. W1, rounded to 4 decimals)
-        #   'db1':   1D list (gradient w.r.t. b1, rounded to 4 decimals)
-        #   'dW2':   2D list (gradient w.r.t. W2, rounded to 4 decimals)
-        #   'db2':   1D list (gradient w.r.t. b2, rounded to 4 decimals)
-        x = np.array(x)
-        W1 = np.array(W1)
-        b1 = np.array(b1)
-        W2 = np.array(W2)
-        b2 = np.array(b2)
-
         z1 = np.dot(W1,x) + b1
         a1 = np.maximum(0,z1)
         z2 = np.dot(W2,a1) + b2
